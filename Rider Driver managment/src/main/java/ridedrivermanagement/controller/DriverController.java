@@ -1,15 +1,13 @@
 package ridedrivermanagement.controller;
 
 import ridedrivermanagement.model.Driver;
+import ridedrivermanagement.model.DriverRequest;
 import ridedrivermanagement.service.DriverService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @RequestMapping("/drivers")
 public class DriverController {
 
@@ -19,34 +17,69 @@ public class DriverController {
         this.driverService = driverService;
     }
 
+    // READ: View All Drivers
     @GetMapping("/dashboard")
-    public String viewDashboard(Model model) {
-        model.addAttribute("drivers", driverService.getAllDrivers());
-        return "driver-dashboard";
+    public List<Driver> getAllDrivers() {
+        return driverService.getAllDrivers();
     }
 
+    // CREATE: Register a New Driver with full profile
     @PostMapping("/register")
-    public String registerDriver(@RequestParam String id, @RequestParam String name) {
-        Driver newDriver = new Driver(id, name, "Available", 0.0);
+    public String registerDriver(@RequestBody DriverRequest req) {
+        Driver newDriver = new Driver(
+                req.getId(),
+                req.getName(),
+                "Available",
+                0.0,
+                req.getLicenseNo(),
+                req.getAddress(),
+                req.getNic(),
+                req.getContactNumber(),
+                req.getFullName(),
+                req.getProfilePhoto(),
+                req.getEmail(),
+                req.getBankAccountNumber(),
+                req.getBankBranch(),
+                req.getBankName()
+        );
+
         driverService.registerDriver(newDriver);
-        return "redirect:/drivers/dashboard";
+        return "Driver registered successfully!";
     }
 
+    // UPDATE: Assign a Ride
     @PostMapping("/assign-ride")
-    public String assignRide(@RequestParam String driverId) {
-        driverService.assignRide(driverId);
-        return "redirect:/drivers/dashboard";
+    public String assignRide(@RequestBody DriverRequest request) {
+        driverService.assignRide(request.getDriverId());
+        return "Ride assigned to driver: " + request.getDriverId();
     }
 
+    // UPDATE: Process Payment
     @PostMapping("/add-payment")
-    public String addPayment(@RequestParam String driverId, @RequestParam double amount) {
-        driverService.updateEarnings(driverId, amount);
-        return "redirect:/drivers/dashboard";
+    public String addPayment(@RequestBody DriverRequest request) {
+        driverService.updateEarnings(request.getDriverId(), request.getAmount());
+        return "Payment of " + request.getAmount() + " added to driver: " + request.getDriverId();
     }
 
+    // DELETE: Remove a driver
     @PostMapping("/delete")
-    public String deleteDriver(@RequestParam String driverId) {
-        driverService.deleteDriver(driverId);
-        return "redirect:/drivers/dashboard";
+    public String deleteDriver(@RequestBody DriverRequest request) {
+        driverService.deleteDriver(request.getDriverId());
+        return "Driver " + request.getDriverId() + " deleted successfully.";
+    }
+
+    // UPDATED: Login check using Username (name) and Email
+    @PostMapping("/login")
+    public String login(@RequestBody DriverRequest request) {
+        // Validation: Search the file data for matching Username and Email
+        boolean isAuthenticated = driverService.getAllDrivers().stream()
+                .anyMatch(d -> d.getName().equalsIgnoreCase(request.getName())
+                        && d.getEmail().equalsIgnoreCase(request.getEmail()));
+
+        if (isAuthenticated) {
+            return "Login Successful! Welcome, " + request.getName();
+        } else {
+            return "Login Failed: Invalid Username or Email.";
+        }
     }
 }
