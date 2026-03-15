@@ -17,7 +17,7 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    // READ: View All Drivers details
+    // READ: View All Drivers
     @GetMapping("/dashboard")
     public List<Driver> getAllDrivers() {
         return driverService.getAllDrivers();
