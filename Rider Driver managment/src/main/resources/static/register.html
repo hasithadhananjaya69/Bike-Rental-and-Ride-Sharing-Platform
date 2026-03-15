@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Driver Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="container mt-4 mb-4">
+    <div class="card p-4 shadow">
+        <h3 class="text-center mb-4">Register New Driver</h3>
+        <form id="registerForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" id="id" class="form-control mb-2" placeholder="Driver ID (e.g. D107)" required>
+                    <input type="text" id="name" class="form-control mb-2" placeholder="Username (Login Name)" required>
+                    <input type="text" id="fullName" class="form-control mb-2" placeholder="Full Name" required>
+                    <input type="email" id="email" class="form-control mb-2" placeholder="Email Address" required>
+                    <input type="text" id="nic" class="form-control mb-2" placeholder="NIC Number" required>
+                    <input type="text" id="contactNumber" class="form-control mb-2" placeholder="Contact Number" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="licenseNo" class="form-control mb-2" placeholder="License Number" required>
+                    <input type="text" id="address" class="form-control mb-2" placeholder="Address" required>
+                    <input type="text" id="profilePhoto" class="form-control mb-2" placeholder="Profile Photo URL (optional)">
+                    <input type="text" id="bankAccountNumber" class="form-control mb-2" placeholder="Bank Account Number" required>
+                    <input type="text" id="bankBranch" class="form-control mb-2" placeholder="Bank Branch" required>
+                    <input type="text" id="bankName" class="form-control mb-2" placeholder="Bank Name" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success w-100 mt-3">Register Driver</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="index.html">Back to Login</a>
+        </div>
+    </div>
+</div>
+<script src="js/register.js"></script>
+</body>
+</html>

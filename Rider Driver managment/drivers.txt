@@ -1,2 +1,3 @@
-D106|surajxxxx|Available|0.0|B4503672|No 112, kaduwela|2000458985V|0771234567|suraj Perera|suraj_profile.jpg|surajxxxxx@example.com|8001234567|kirama|Bank of Ceylon
-D108|xxxx|Available|12001.0|B4503672|No 112, kaduwela|2000458985V|0771234567|suraj Perera|suraj_profile.jpg|xxxxx@example.com|8001234567|kirama|Bank of Ceylon
+D106|surajxxxx|On Ride|0.0|B4503672|No 112, kaduwela|2000458985V|0771234567|suraj Perera|suraj_profile.jpg|surajxxxxx@example.com|8001234567|kirama|Bank of Ceylon
+D108|xxxx|Available|21002.0|B4503672|No 112, kaduwela|2000458985V|0771234567|suraj Perera|suraj_profile.jpg|xxxxx@example.com|8001234567|kirama|Bank of Ceylon
+d107|vihanga|Available|0.0|b2345167|kirama, srilanka|20021236745|0704964456|vihanga didulantha|default.jpg|vihanga@gmail.com|100002425|walasmulla|boc
