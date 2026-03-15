@@ -2,13 +2,7 @@ package ridedrivermanagement.repository;
 
 import ridedrivermanagement.model.Driver;
 import org.springframework.stereotype.Repository;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,12 +19,21 @@ public class DriverRepository {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length == 4) {
-                    drivers.add(new Driver(data[0], data[1], data[2], Double.parseDouble(data[3])));
+                if (line.trim().isEmpty()) continue; // Skip empty lines
+
+                // UPDATED: Split using the pipe symbol. Double backslash is required in Java for regex.
+                String[] d = line.split("\\|");
+
+                // Verification for the 14 fields
+                if (d.length >= 14) {
+                    drivers.add(new Driver(
+                            d[0].trim(), d[1].trim(), d[2].trim(), Double.parseDouble(d[3].trim()),
+                            d[4].trim(), d[5].trim(), d[6].trim(), d[7].trim(), d[8].trim(),
+                            d[9].trim(), d[10].trim(), d[11].trim(), d[12].trim(), d[13].trim()
+                    ));
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
         return drivers;
