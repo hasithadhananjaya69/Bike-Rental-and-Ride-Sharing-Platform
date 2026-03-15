@@ -6,10 +6,10 @@ window.onload = function() {
 // READ: Fetch all drivers from backend
 function loadDrivers() {
     fetch('/drivers/dashboard')
-        .then(response => response.json()) // Dashboard returns JSON list
+        .then(response => response.json())
         .then(drivers => {
             const tableBody = document.getElementById('driverTableBody');
-            tableBody.innerHTML = ''; // Clear table
+            tableBody.innerHTML = '';
 
             drivers.forEach(driver => {
                 const row = `<tr>
@@ -31,24 +31,17 @@ function loadDrivers() {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-// UPDATE: Assign a ride
 function assignRide(id) {
     fetch('/drivers/assign-ride', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ driverId: id })
-    })
-        .then(res => res.text())
-        .then(msg => {
-            alert(msg);
-            loadDrivers(); // Refresh table
-        });
+    }).then(res => res.text()).then(msg => { alert(msg); loadDrivers(); });
 }
 
-// UPDATE: Add payment
 function addPayment(id) {
     const amountStr = prompt("Enter payment amount to add:");
-    if (!amountStr) return; // Cancelled
+    if (!amountStr) return;
 
     const amount = parseFloat(amountStr);
     if (isNaN(amount) || amount <= 0) {
@@ -60,26 +53,15 @@ function addPayment(id) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ driverId: id, amount: amount })
-    })
-        .then(res => res.text())
-        .then(msg => {
-            alert(msg);
-            loadDrivers(); // Refresh table
-        });
+    }).then(res => res.text()).then(msg => { alert(msg); loadDrivers(); });
 }
 
-// DELETE: Remove driver
 function deleteDriver(id) {
     if (confirm("Are you sure you want to delete driver " + id + "?")) {
         fetch('/drivers/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ driverId: id })
-        })
-            .then(res => res.text())
-            .then(msg => {
-                alert(msg);
-                loadDrivers(); // Refresh table
-            });
+        }).then(res => res.text()).then(msg => { alert(msg); loadDrivers(); });
     }
 }

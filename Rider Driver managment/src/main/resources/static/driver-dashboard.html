@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Driver Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="card-container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Profile</h2>
+        <a href="index.html" class="btn btn-secondary btn-sm" onclick="localStorage.clear()">Logout</a>
+    </div>
+
+    <div class="card shadow-sm p-4">
+        <h4 id="driverName" class="text-primary">Loading...</h4>
+        <hr>
+        <p class="mb-2"><strong>ID:</strong> <span id="driverId"></span></p>
+        <p class="mb-2"><strong>Status:</strong> <span id="driverStatus" class="badge"></span></p>
+        <p class="mb-2"><strong>Total Earnings:</strong> Rs. <span id="driverEarnings"></span></p>
+        <p class="mb-2"><strong>Contact Number:</strong> <span id="driverContact"></span></p>
+        <p class="mb-0"><strong>Email Address:</strong> <span id="driverEmail"></span></p>
+    </div>
+</div>
+<script src="js/driver-dashboard.js"></script>
+</body>
+</html>

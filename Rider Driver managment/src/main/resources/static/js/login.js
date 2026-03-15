@@ -5,17 +5,27 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
 
-    // Send POST request to your Spring Boot API
+    // 1. HARDCODED ADMIN CHECK
+    if (name === "admin" && email === "admin@system.com") {
+        alert("Admin Login Successful!");
+        // FIXED: Pointing to your correctly named admin file
+        window.location.href = "admin-dashboard.html";
+        return;
+    }
+
+    // 2. NORMAL DRIVER LOGIN
     fetch('/drivers/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email })
     })
-        .then(response => response.text()) // Backend returns plain text
+        .then(response => response.text())
         .then(data => {
             if (data.includes("Successful")) {
                 alert(data);
-                window.location.href = "dashboard.html"; // Redirect to dashboard
+                // Save the driver's name in the browser so the dashboard knows who to show
+                localStorage.setItem('loggedInDriverName', name);
+                window.location.href = "driver-dashboard.html";
             } else {
                 alert(data); // Shows "Login Failed" message
             }
